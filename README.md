@@ -1,6 +1,6 @@
 # Parallel computing project
 
-Each function (ompcumsum, rthma, rthma_lambda) has 2 others differents file .o and .so. These files are the result of the line in the terminal.
+Each function (ompcumsum, rthma, rthma_lambda) has 2 other different file .o and .so. These files are the result of the line in the terminal.
 ```
 R CMD SHLIB file_name.cpp
 ```
@@ -14,7 +14,7 @@ To call out the function in Console:
 ```
 
 
-Or these function could be simply loaded in the Console:
+Or these functions could be simply loaded in the Console:
 ```
 Rcpp::sourceCpp('file_name.cpp')
 ```
