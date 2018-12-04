@@ -1,0 +1,62 @@
+---
+output:
+  html_document: default
+---
+#Load in Terminal
+```{r}
+# dyn.load("~/Desktop/RCpp_test/ompcumsum.so")
+# dyn.load("~/Desktop/RCpp_test/rthma.so")
+# dyn.load("~/Desktop/RCpp_test/rthma_lambda.so")
+```
+
+##Call out function
+
+```{r}
+# .Call("ompcumsum", runif(100), as.integer(2))
+# .Call("rthma", runif(100), as.integer(5),as.integer(-1))
+# .Call("rthma_lambda", runif(100), as.integer(5),as.integer(-1))
+```
+
+
+#Load in Console
+
+```{r}
+Rcpp::sourceCpp('~/Desktop/RCpp_test/ompcumsum.cpp')
+Rcpp::sourceCpp('~/Desktop/RCpp_test/rthma.cpp')
+Rcpp::sourceCpp('~/Desktop/RCpp_test/rthma_lambda.cpp')
+```
+
+##Call out function
+
+```{r}
+# ompcumsum(runif(100), as.integer(2))
+# rthma(runif(100), as.integer(5),as.integer(-1))
+# rthma_lambda(runif(100), as.integer(5),as.integer(-1))
+```
+
+#Compare ompcumsum() with cumsum()
+```{r}
+compare <- microbenchmark::microbenchmark(cumsum(runif(10000)), 
+                                          ompcumsum(runif(10000), as.integer(2)),
+                                          times = 3)
+ggplot2::autoplot(compare)
+```
+
+#Compare rthma() with runmean()
+```{r}
+message("runmean() of caTools")
+system.time(caTools::runmean(runif(15000000),10))
+
+message("rthma() of Rth code ")
+system.time(rthma(runif(15000000), as.integer(10),as.integer(-1)))
+```
+
+#Compare lambda function with Rth code
+```{r}
+message("rthma() of Rth code ")
+system.time(rthma(runif(15000000), as.integer(10),as.integer(-1)))
+
+message("rthma() of lambda function code")
+system.time(rthma_lambda(runif(15000000), as.integer(10),as.integer(-1)))
+```
+
