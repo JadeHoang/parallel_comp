@@ -1,0 +1,49 @@
+---
+title: "Prefix scan"
+author: "Gauthier Castro, David Beley, Hoang Bich Ngoc"
+date: "5/12/2018"
+output: beamer_presentation
+---
+
+# Introduction
+
+#Prefix scan
+
+## Cumsum in R 
+```{r}
+x <- c(12, 5, 16)
+cumsum(x)
+```
+
+
+## Algorithm 
+
+\[s_{0} = x_{0} \\
+  s_{1} = x_{0} \otimes x_{1} \\
+  s_{2} = x_{0} \otimes x_{1} \otimes x_{2} ,\\
+  . . . , \\
+  s_{n-1} = x_{0} \otimes x_{1} \otimes x_{2}\]
+
+
+## Breakfast
+
+- Eat eggs
+- Drink coffee
+
+# In the evening
+
+## Dinner
+
+- Eat spaghetti
+- Drink wine
+
+---
+
+```{r, cars, fig.cap="A scatterplot.", echo=FALSE}
+plot(cars)
+```
+
+## Going to sleep
+
+- Get in bed
+- Count sheep
