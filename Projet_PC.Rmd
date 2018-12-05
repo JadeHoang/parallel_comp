@@ -143,8 +143,26 @@ res
 sum(res)
 ```
 
+# Parallelization methods
 
-## Parallelization methods
+## Overview
+
+- Hillis and Steele
+1980
+
+- Blelloch 
+a work-efficient data-parallel algorithm
+1990
+
+- Brent-Kung
+
+- Kogge-Stone
+
+- Sklansky
+
+- Han-Carlson
+
+- Daniel Horn (2005)
 
 3 algorithms:
 
@@ -189,8 +207,6 @@ x
 Work-efficiency :
 
 An algorithm is considered to be work-efficient if its work complexity scales linearly with the size of input data.
-
-## Implementations
 
 # Benchmark
 
