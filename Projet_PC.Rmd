@@ -2,48 +2,73 @@
 title: "Prefix scan"
 author: "Gauthier Castro, David Beley, Hoang Bich Ngoc"
 date: "5/12/2018"
-output: beamer_presentation
+output: 
+  beamer_presentation:
+    theme: "Warsaw"
+    slide_level: 2
+    toc: true
 ---
 
 # Introduction
 
-#Prefix scan
+blablabla
 
-## Cumsum in R 
+# Prefix scan
+
+## Simple example with cumsum
+
 ```{r}
-x <- c(12, 5, 16)
+x <- c(12, 5, 13)
 cumsum(x)
 ```
 
 
 ## Algorithm 
 
-\[s_{0} = x_{0} \\
-  s_{1} = x_{0} \otimes x_{1} \\
-  s_{2} = x_{0} \otimes x_{1} \otimes x_{2} ,\\
-  . . . , \\
-  s_{n-1} = x_{0} \otimes x_{1} \otimes x_{2}\]
+### Inclusive vs. Exclusive scan
+
+```{r echo=F}
+cumsum_inclusive <- function(x) {
+  return(cumsum(x))
+}
+
+cumsum_exclusive <- function(x) {
+  res <- c(0)
+  temp <- 0
+  for (i in 1:length(x)-1) {
+    last_result <- temp
+    temp <- res[i] + x[i]
+    res <- c(res, temp)
+  }
+  return(res)
+}
+
+```
 
 
-## Breakfast
+## Simple examples with cumsum
 
-- Eat eggs
-- Drink coffee
+```{r}
+x <- c(12, 5, 16)
+cumsum_inclusive(x)
+```
 
-# In the evening
+```{r}
+x <- c(12, 5, 16)
+cumsum_exclusive(x)
+```
 
-## Dinner
+
+
+## Parallelization methods
+
+
+
+## Implementations
+
+# Benchmark
 
 - Eat spaghetti
 - Drink wine
 
 ---
-
-```{r, cars, fig.cap="A scatterplot.", echo=FALSE}
-plot(cars)
-```
-
-## Going to sleep
-
-- Get in bed
-- Count sheep
