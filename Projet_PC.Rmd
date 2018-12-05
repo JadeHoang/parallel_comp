@@ -9,41 +9,33 @@ output: beamer_presentation
 
 #Prefix scan
 
-## Cumsum in R 
+## Simple examples with cumsum
+- Inclusive scan
 ```{r}
 x <- c(12, 5, 16)
-cumsum(x)
+cumsum_inclusive(x)
 ```
+-Exclusive scan
+```{r}
+x <- c(12, 5, 16)
+cumsum_exclusive(x)
+```
+
 
 
 ## Algorithm 
 
-\[s_{0} = x_{0} \\
+Input : $$x_{0}, x_{1},...,x_{n-1}$$
+Output : $$s_{0}, s_{1},...,s_{n-1}$$
+Operator: $$\otimes$$
+Prefix scan general formulation:
+$$\begin{array}{c}
+  s_{0} = x_{0}\\
   s_{1} = x_{0} \otimes x_{1} \\
-  s_{2} = x_{0} \otimes x_{1} \otimes x_{2} ,\\
-  . . . , \\
-  s_{n-1} = x_{0} \otimes x_{1} \otimes x_{2}\]
+  s_{2} = x_{0} \otimes x_{1} \otimes x_{2},\\
+  . . . ,\\
+  s_{n-1} = x_{0} \otimes x_{1} \otimes ... \otimes x_{n-1}\\ \end{array}$$
+  
+#
+  
 
-
-## Breakfast
-
-- Eat eggs
-- Drink coffee
-
-# In the evening
-
-## Dinner
-
-- Eat spaghetti
-- Drink wine
-
----
-
-```{r, cars, fig.cap="A scatterplot.", echo=FALSE}
-plot(cars)
-```
-
-## Going to sleep
-
-- Get in bed
-- Count sheep
