@@ -2,6 +2,9 @@
 title: "Prefix scan"
 author: "Gauthier Castro, David Beley, Hoang Bich Ngoc"
 date: "5/12/2018"
+header-includes:
+  - \usepackage{algorithmicx}
+  - \usepackage{algorithm2e}
 output: 
   beamer_presentation:
     theme: "Warsaw"
@@ -145,8 +148,27 @@ sum(res)
 
 # Parallelization methods
 
-## Overview
+## Algorithm
 
+### log-based method
+
+```{r eval=F}
+for i <- 0 to [log_2 n] - 1 do
+  for j <- 0 do n - 1 do in parallel
+    if j < 2^i then
+      x^(i+1)_{j} <- x^i_j
+    else
+      x^(i+1)_{j} <- x^i_j + x^i_(j-2^i)
+```
+
+## Illustration
+
+### Illustration
+
+![Illustration](schema.png){width=200px}
+
+<!--
+- 
 - Hillis and Steele
 1980
 
@@ -168,51 +190,36 @@ a work-efficient data-parallel algorithm
 
 - bottom-up
 
-```{r echo=F}
-# TEST
-x0 <- 0
-x1 <- 1
-x2 <- 2
-x3 <- 3
-x4 <- 4
-
-# 1ère étape en parallèle
-# x1 <- x0 + x1
-x1 <- 0 + 1
-# x2 <- x1 + x2
-x2 <- 1 + 2
-# x3 <- x2 + x3
-x3 <- 2 + 3
-# x4 <- x3 + x4
-x4 <- 3 + 4
-
-# 2ème étape
-# x2 <- x0 + x2
-x2 <- 0 + 3
-# x3 <- x1 + x3
-x3 <- 1 + 5
-# x4 <- x2 + x4
-x4 <- 3 + 7
-
-# 3ème étape
-# x4 <- x0 + x4
-x4 <- 0 + 10
-
-x <- c(x0, x1, x2, x3, x4)
-x
-```
-
 - top-down
 
 Work-efficiency :
 
 An algorithm is considered to be work-efficient if its work complexity scales linearly with the size of input data.
+-->
 
 # Benchmark
 
-## Cumsum comparisons
+## Functions implemented
+
+- cs : sequential cumsum
+- vcs : vectorized cumsum
+- scs : "sapply" cumsum
+- pscs : parallel "sapply" cumsum
+- fcs : "foreach" cumsum
+- pfcs : parallel "foreach" cumsum
+- c-cs : compiled cs
+- c-scs : compiled scs
+- c-vcs : compiled vcs
+
+## Benchmark
 
 ```{r}
+
+```
+
+## Cumsum comparisons
+
+```{r, echo=F, warning=F}
 test <- runif(1e2)
 bench <- microbenchmark::microbenchmark(cumsum_inclusive(test),
                                cumsum_exclusive(test),
