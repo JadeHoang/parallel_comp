@@ -1,12 +1,14 @@
 ---
 title: "Prefix scan"
 author: "Gauthier Castro, David Beley, Hoang Bich Ngoc"
-date: "5/12/2018"
+date: "7/12/2018"
 header-includes:
   - \usepackage{algorithmicx}
   - \usepackage{algorithm2e}
 output: 
   beamer_presentation:
+    includes:
+        in_header: header_pagenrs.tex
     theme: "Warsaw"
     slide_level: 2
     toc: true
@@ -148,6 +150,7 @@ sum(res)
 
 # Parallelization methods
 
+<!--
 ## Algorithm
 
 ### log-based method
@@ -160,8 +163,9 @@ for i <- 0 to [log_2 n] - 1 do
     else
       x^(i+1)_{j} <- x^i_j + x^i_(j-2^i)
 ```
+-->
 
-##Algorithm
+## Algorithm: log-based method
 
 ***for*** i $\leftarrow$ 0 to [log~2~n] - 1 ***do***
 
@@ -177,9 +181,7 @@ for i <- 0 to [log_2 n] - 1 do
 
 ## Illustration
 
-### Illustration
-
-![Illustration](schema.png){width=200px}
+![log-based Illustration](schema.png){width=200px}
 
 <!--
 - 
@@ -227,10 +229,9 @@ An algorithm is considered to be work-efficient if its work complexity scales li
 
 ## Benchmark
 
-```{r}
+![Cumsum functions comparison](bench.png){width=340px}
 
-```
-
+<!--
 ## Cumsum comparisons
 
 ```{r, echo=F, warning=F}
@@ -240,5 +241,13 @@ bench <- microbenchmark::microbenchmark(cumsum_inclusive(test),
                                cumsum(test))
 ggplot2::autoplot(bench)
 ```
+-->
 
----
+## Conclusion
+
+### Further Reading
+
+- Blelloch algorithm (work-efficient algorithm)
+
+### References
+
