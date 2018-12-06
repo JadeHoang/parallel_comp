@@ -1,6 +1,6 @@
 ---
-title: "Prefix scan"
-author: "Gauthier Castro, David Beley, Hoang Bich Ngoc"
+title: "Parallel Prefix Scan"
+author: "Gauthier Castro, David Beley, Bich Ngoc Hoang"
 date: "7/12/2018"
 header-includes:
   - \usepackage{algorithmicx}
@@ -120,7 +120,7 @@ $$ \begin{array}{cccccc}
   x^0 & x^1 & x^2 & x^3 & x^4\\
   * & * & * & * & *\\
   7 & 5 & -3 & -6 & 3\end{array}$$
-  
+
 ***
 
 ## Calculation of Polynomial
@@ -147,6 +147,27 @@ coef
 res
 sum(res)
 ```
+
+
+## Quick sort
+
+```{r,echo = F}
+x <- c(19,24,22,47,27,8,28,39,4,43,11,49,45,43,2,13)
+y <- x[x > 28]
+
+```
+
+```{r}
+x
+
+y
+
+b <- as.integer(x>28)
+b
+
+cumsum(b)
+```
+
 
 # Parallelization Methods
 
@@ -184,6 +205,9 @@ for i <- 0 to [log_2 n] - 1 do
 ![log-based Illustration](schema.png){width=200px}
 
 ## Algorithm: Chunk-Based
+
+Ti: thread i  
+p : number of chunks
 
 ```{r, eval=F}
 break the array into p blocks
@@ -229,6 +253,7 @@ An algorithm is considered to be work-efficient if its work complexity scales li
 
 ## Algorithm: Chunk-Based - Illustration
 
+Say we have the array and break it into 3 sections:
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -238,6 +263,7 @@ An algorithm is considered to be work-efficient if its work complexity scales li
 \end{tabular}
 \end{table}
 
+Apply a scan to each section:
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -247,6 +273,7 @@ An algorithm is considered to be work-efficient if its work complexity scales li
 \end{tabular}
 \end{table}
 
+The result:
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|l|}
