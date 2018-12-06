@@ -153,19 +153,17 @@ sum(res)
 
 ```{r,echo = F}
 x <- c(19,24,22,47,27,8,28,39,4,43,11,49,45,43,2,13)
-y <- x[x > 28]
 
 ```
 
 ```{r}
 x
 
-y
+x[x > 28]
 
-b <- as.integer(x>28)
-b
+as.integer(x>28)
 
-cumsum(b)
+cumsum(as.integer(x>28))
 ```
 
 
