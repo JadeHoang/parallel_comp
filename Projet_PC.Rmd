@@ -161,6 +161,20 @@ for i <- 0 to [log_2 n] - 1 do
       x^(i+1)_{j} <- x^i_j + x^i_(j-2^i)
 ```
 
+##Algorithm
+
+***for*** i $\leftarrow$ 0 to [log~2~n] - 1 ***do***
+
+- ***for*** j $\leftarrow$ 0 to n - 1 ***do in parallel***
+
+      - ***if*** j < 2^i^ ***then***
+        
+        - x~j~^i+1^ $\leftarrow$ x~j~^i^
+          
+      - ***else***  
+        
+        - x~j~^i+1^ $\leftarrow$ x~j~^i^ + x^i^~j-2^i^~ 
+
 ## Illustration
 
 ### Illustration
