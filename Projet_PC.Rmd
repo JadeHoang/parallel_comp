@@ -124,15 +124,15 @@ $$ x=7 $$
 $$P = 7 + 5x - 3x^2 - 6x^3 + 3x^4$$
 
 ```{r echo=F}
-x <- c(1, rep(7, 4))
-xprod <- cumprod(x)
+x <- c(rep(7, 4))
+xprod <- c(1,cumprod(x))
 coef <- c(7, 5, -3, -6, 3)
 res <- xprod * coef
 ```
 
 ```{r}
 x
-cumprod(x)
+c(1,cumprod(x))
 coef
 ```
 

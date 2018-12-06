@@ -20,7 +20,7 @@ output:
 
 #Load in Console
 
-```{r}
+```{r echo=F}
 Rcpp::sourceCpp('~/Desktop/RCpp_test/ompcumsum.cpp')
 Rcpp::sourceCpp('~/Desktop/RCpp_test/rthma.cpp')
 Rcpp::sourceCpp('~/Desktop/RCpp_test/rthma_lambda.cpp')
@@ -36,8 +36,8 @@ Rcpp::sourceCpp('~/Desktop/RCpp_test/rthma_lambda.cpp')
 
 #Compare ompcumsum() with cumsum()
 ```{r}
-compare <- microbenchmark::microbenchmark(cumsum(runif(10000)), 
-                                          ompcumsum(runif(10000), as.integer(2)),
+compare <- microbenchmark::microbenchmark(cumsum(runif(1e6)), 
+                                          ompcumsum(runif(1e6), as.integer(2)),
                                           times = 3)
 ggplot2::autoplot(compare)
 ```
@@ -54,9 +54,15 @@ system.time(rthma(runif(15000000), as.integer(10),as.integer(-1)))
 #Compare lambda function with Rth code
 ```{r}
 message("rthma() of Rth code ")
-system.time(rthma(runif(15000000), as.integer(10),as.integer(-1)))
+system.time(rthma(runif(1500000), as.integer(10),as.integer(-1)))
 
 message("rthma() of lambda function code")
-system.time(rthma_lambda(runif(15000000), as.integer(10),as.integer(-1)))
+system.time(rthma_lambda(runif(1500000), as.integer(10),as.integer(-1)))
+```
+```{r}
+compare2 <- microbenchmark::microbenchmark(rthma(runif(1500000), as.integer(10),as.integer(-1)), 
+                                          rthma_lambda(runif(1500000), as.integer(10),as.integer(-1)),
+                                          times = 3)
+ggplot2::autoplot(compare2)
 ```
 
