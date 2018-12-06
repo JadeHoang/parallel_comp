@@ -19,13 +19,13 @@ output:
 rm(list=ls())
 ```
 
-# Prefix scan
+# Prefix Scan
 
 ## Algorithm 
 
-Input : $x_{0}, x_{1},...,x_{n-1}$
+Input: $x_{0}, x_{1},...,x_{n-1}$
 
-Output : $s_{0}, s_{1},...,s_{n-1}$
+Output: $s_{0}, s_{1},...,s_{n-1}$
 
 Operator: $\otimes$
 
@@ -39,14 +39,14 @@ $$\begin{array}{c}
   
 ***
 
-### Simple example with cumsum
+### Simple Example With Cumsum
 
 ```{r}
 x <- c(12, 5, 13)
 cumsum(x)
 ```
 
-## Inclusive vs. Exclusive scan
+## Inclusive Vs. Exclusive Scan
 
 In inclusive scan, $x_{i}$ is included in $s_{i}$. In exclusive prefix scan, $x_{i}$ is not included.
 
@@ -66,7 +66,7 @@ $x_{n-1} = x_{0} \otimes x_{1} \otimes ... \otimes x_{n-1}$ & $ x_{n-1} = x_{0} 
 
 -->
 
-### Examples with cumsum
+### Examples With Cumsum
 
 ```{r echo=F}
 cumsum_inclusive <- function(x) {
@@ -104,17 +104,17 @@ cumsum_exclusive(x)
 
 # Applications
 
-## Polynomial calculation
+## Polynomial Calculation
 
 $$P = 7 + 5x - 3x^2 - 6x^3 + 3x^4$$
 
-#### Exclusive prefix scan with product operator 
+#### Exclusive Prefix Scan With Product Operator 
 
 $$ \begin{array}{cccccc}
   x & x & x & x & x\\
   s_{0} = x^0 & s_{1}=x^1 & s_{2}=x^2 & s_{3}=x^3 & s_{4}=x^4\end{array}$$
 
-#### Multiplication of the input vectors and the coefficient vectors
+#### Multiplication of the Input Vectors and the Coefficient Vectors
 
 $$ \begin{array}{cccccc}
   x^0 & x^1 & x^2 & x^3 & x^4\\
@@ -123,7 +123,7 @@ $$ \begin{array}{cccccc}
   
 ***
 
-## Calculation of polynomial
+## Calculation of Polynomial
 
 $$ x=7 $$
 $$P = 7 + 5x - 3x^2 - 6x^3 + 3x^4$$
@@ -141,14 +141,14 @@ c(1,cumprod(x))
 coef
 ```
 
-## Calculation of polynomial
+## Calculation of Polynomial
 
 ```{r}
 res
 sum(res)
 ```
 
-# Parallelization methods
+# Parallelization Methods
 
 <!--
 ## Algorithm
@@ -165,7 +165,7 @@ for i <- 0 to [log_2 n] - 1 do
 ```
 -->
 
-## Algorithm: log-based method
+## Algorithm: Log-Based Method
 
 ***for*** i $\leftarrow$ 0 to [log~2~n] - 1 ***do***
 
@@ -179,9 +179,23 @@ for i <- 0 to [log_2 n] - 1 do
         
         - x~j~^i+1^ $\leftarrow$ x~j~^i^ + x^i^~j-2^i^~ 
 
-## Illustration
+## Algorithm: Log-Based Method - Illustration
 
 ![log-based Illustration](schema.png){width=200px}
+
+## Algorithm: Chunk-Based
+
+```{r, eval=F}
+break the array into p blocks
+parallel for i = 0,...,p-1
+  Ti does scan of block i, resulting in Si
+form new array G of rightmost elements of each Si
+do parallel scan of G
+parallel for i = 1,...,p-1
+  Ti adds Gi to each element of block i+1
+```
+
+<!--TODO exemple + illustration-->
 
 <!--
 - 
@@ -213,19 +227,47 @@ Work-efficiency :
 An algorithm is considered to be work-efficient if its work complexity scales linearly with the size of input data.
 -->
 
+## Algorithm: Chunk-Based - Illustration
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+2 25 26 8 & 50 3 1 11 & 7 9 29 10 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+2 27 53 61 & 50 53 54 65 & 7 16 45 55 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+2 27 53 61 & 111 114 115 126 & 133 142 171 181 \\
+\hline
+\end{tabular}
+\end{table}
 # Benchmark
 
-## Functions implemented
+## Functions Implemented
 
-- cs : sequential cumsum
-- vcs : vectorized cumsum
-- scs : "sapply" cumsum
-- pscs : parallel "sapply" cumsum
-- fcs : "foreach" cumsum
-- pfcs : parallel "foreach" cumsum
-- c-cs : compiled cs
-- c-scs : compiled scs
-- c-vcs : compiled vcs
+- cs: sequential cumsum
+- vcs: vectorized cumsum
+- scs: "sapply" cumsum
+- pscs: parallel "sapply" cumsum
+- fcs: "foreach" cumsum
+- pfcs: parallel "foreach" cumsum
+- c-cs: compiled cs
+- c-scs: compiled scs
+- c-vcs: compiled vcs
 
 ## Benchmark
 
@@ -244,10 +286,13 @@ ggplot2::autoplot(bench)
 -->
 
 ## Conclusion
+ 
+### To go Further
 
-### Further Reading
-
-- Blelloch algorithm (work-efficient algorithm)
+- Blelloch Algorithm (Work-Efficient Algorithm)
 
 ### References
 
+- Matloff N., Parallel Computing for Data Science, Chapter 11: Parallel Prefix Scan, 2016
+- Blelloch G.E., Prefix Sums and Their Applications, 1990
+- Sengupta S. et al., A Work-Efficient Step-Efficient Prefix-Sum Algorithm, 2006
